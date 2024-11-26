@@ -22,6 +22,7 @@ import {
   HousePlus,
   Bandage,
   PiggyBank,
+  ShieldPlus,
 } from "lucide-react"; // Example icons
 
 function Footer() {
@@ -103,7 +104,10 @@ function Footer() {
                     <Button
                       className="h-24 flex flex-col items-center justify-center"
                       variant="outline"
-                    ></Button>
+                    >
+                      <ShieldPlus />
+                      Team
+                    </Button>
                   </div>
                 </div>
                 <DrawerFooter>

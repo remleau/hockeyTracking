@@ -24,6 +24,7 @@ export default function InputField({
     <div className="mb-4">
       <Label htmlFor={name}>{label}</Label>
       <Input
+        name={name}
         id={name}
         type={type}
         value={value}

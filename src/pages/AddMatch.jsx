@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils"; // Optional utility for conditional classes
 
+import PageTitle from "@/components/PageTitle";
+
 // Define step schemas
 const schemas = [
   z.object({
@@ -40,8 +42,10 @@ const schemas = [
 function Step1() {
   return (
     <>
-      <InputField name="firstName" label="First Name" />
-      <InputField name="lastName" label="Last Name" />
+      <InputField name="firstName" label="date" />
+      <InputField name="firstName" label="Where did i play" />
+      <InputField name="lastName" label="which team" />
+      <InputField name="lastName" label="which color" />
     </>
   );
 }
@@ -125,11 +129,11 @@ export default function AddMatch() {
 
   return (
     <div>
-      <h2>add hockey match</h2>
+      <PageTitle title={"Add a Match"} />
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit(onSubmit)}
-          className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md"
+          className="max-w-lg mx-auto p-6"
         >
           <h1 className="text-xl font-bold mb-4">
             Step {step + 1} of {schemas.length}
