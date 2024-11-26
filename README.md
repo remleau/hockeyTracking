@@ -77,12 +77,16 @@ Manage details about the teams the user plays for, including:
 
 - List of **teams** with names and colors.
 - Option to **add new teams** and specify their colors (e.g., White/Black or Home/Away).
+- Ability to **associate each team with an arena** where the team plays.
+- **Recurring playing day**: Set default game day(s).
 
 #### **Steps to Implement:**
 
 1. Fetch the list of teams from the database.
-2. Create a form for adding a new team with fields for name and colors.
-3. Display teams dynamically and allow editing/deleting teams.
+2. Create a form for adding a new team with fields for name, colors, and associated arena.
+3. Allow users to select an arena from a dropdown populated with arenas fetched from the database.
+4. Display teams dynamically and allow editing/deleting teams.
+5. Add a dropdown or checkboxes for selecting recurring game days.
 
 ---
 
@@ -93,13 +97,11 @@ Manage details about the teams the user plays for, including:
 Configure global settings for the user:
 
 - **Home address**: Used for travel and arena distance calculations.
-- **Recurring playing day**: Set default game day(s).
 
 #### **Steps to Implement:**
 
 1. Fetch user settings from the database and pre-fill fields.
 2. Allow users to update their home address and save it securely.
-3. Add a dropdown or checkboxes for selecting recurring game days.
 
 ---
 
@@ -112,12 +114,15 @@ Manage and display details about arenas where the user plays games:
 - List of arenas with names and addresses.
 - **Distance** from the user's home in kilometers.
 - **Travel cost** calculated based on distance and fuel price.
+- Ability to **list teams** that play in a specific arena.
 
 #### **Steps to Implement:**
 
 1. Fetch arena details from the database.
 2. Use a geolocation API to calculate distance from the user’s home to the arena.
 3. Calculate travel costs dynamically and display alongside arena details.
+4. Fetch the list of teams that are associated with each arena and display them on the Arena Page.
+5. Provide a form to add/remove teams from the arena dynamically.
 
 ---
 
