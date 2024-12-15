@@ -1,18 +1,14 @@
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient({
-    defaultOptions:{
-        queries:{
-            retry: 2,
-            refetchOnWindowFocus: false
-        }
-    }
-})
+  defaultOptions: {
+    queries: {
+      retry: 2,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 export const QueryProvider = ({ children }) => (
-    <QueryClientProvider client={queryClient}>
-        {children}
-        <ReactQueryDevtools />
-    </QueryClientProvider>
-)
+  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+);
