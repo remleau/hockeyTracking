@@ -36,7 +36,7 @@ export default function InputField({
             }
 
             // Optionally, use setValue to update the form state
-            setValue(name, e.target.value, { shouldValidate: true });
+            // setValue(name, e.target.value, { shouldValidate: true });
           },
         })}
         className={cn(error && "border-red-500")}

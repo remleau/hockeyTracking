@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import usePersistentNavigation from "@/hooks/usePersistantNav";
 
 import {
   Drawer,
@@ -28,7 +28,7 @@ import {
 function Footer() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
-  const navigate = useNavigate();
+  const { navigateTo } = usePersistentNavigation();
 
   return (
     <>
@@ -37,7 +37,7 @@ function Footer() {
         <Button
           variant="ghost"
           className="flex-1 h-full flex flex-col items-center justify-center"
-          onClick={() => navigate("/")}
+          onClick={() => navigateTo("/")}
         >
           <Home className="w-10 h-10" />
           <span className="text-xs">Home</span>
@@ -47,7 +47,7 @@ function Footer() {
         <Button
           variant="ghost"
           className="flex-1 h-full flex flex-col items-center justify-center"
-          onClick={() => navigate("/stats")}
+          onClick={() => navigateTo("/stats")}
         >
           <BarChart />
           <span className="text-xs">Stats</span>
@@ -75,7 +75,7 @@ function Footer() {
                       variant="outline"
                       onClick={() => {
                         setIsDrawerOpen(false);
-                        navigate("/addMatch");
+                        navigateTo("/addMatch");
                       }}
                     >
                       <Bandage />
@@ -126,7 +126,7 @@ function Footer() {
         <Button
           variant="ghost"
           className="flex-1 h-full flex flex-col items-center justify-center"
-          onClick={() => navigate("/expenses")}
+          onClick={() => navigateTo("/expenses")}
         >
           <WalletMinimal />
           <span className="text-xs">Expenses</span>
@@ -136,7 +136,7 @@ function Footer() {
         <Button
           variant="ghost"
           className="flex-1 h-full flex flex-col items-center justify-center"
-          onClick={() => navigate("/settings")}
+          onClick={() => navigateTo("/settings")}
         >
           <Settings />
           <span className="text-xs">Settings</span>

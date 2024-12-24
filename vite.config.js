@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { VitePWA } from "vite-plugin-pwa";
 
-const host = process.env.TAURI_DEV_HOST;
+const host = process.env.VITE_TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
@@ -12,7 +12,9 @@ export default defineConfig(async () => ({
     VitePWA({
       registerType: "autoUpdate",
       workbox: {
-        navigateFallback: "/index.html", // Serve index.html for navigation requests
+        skipWaiting: true,
+        clientsClaim: true,
+        navigateFallback: "/index.html",
       },
       manifest: {
         name: "Tauri PWA",
@@ -48,13 +50,14 @@ export default defineConfig(async () => ({
       ? {
           protocol: "ws",
           host,
-          port: 1421,
+          port: 1420,
         }
       : undefined,
     watch: {
       // 3. tell vite to ignore watching `src-tauri`
       ignored: ["**/src-tauri/**"],
     },
+    fs: { strict: false }, // Allow serving files outside root
     historyApiFallback: true,
   },
   resolve: {
@@ -66,5 +69,10 @@ export default defineConfig(async () => ({
     outDir: "./dist", // The directory to output the production build
     assetsDir: "assets",
     sourcemap: false,
+    rollupOptions: {
+      input: {
+        main: "./index.html",
+      },
+    },
   },
 }));
