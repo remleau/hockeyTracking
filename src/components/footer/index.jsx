@@ -95,6 +95,10 @@ function Footer() {
                     <Button
                       className="h-24 flex flex-col items-center justify-center"
                       variant="outline"
+                      onClick={() => {
+                        setIsDrawerOpen(false);
+                        navigateTo("/add-arena");
+                      }}
                     >
                       <HousePlus />
                       Arena

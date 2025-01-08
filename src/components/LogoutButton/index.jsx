@@ -18,8 +18,9 @@ export default function LogoutButton() {
   return (
     session && (
       <Button
-        variant="ghost"
-        className="h-full flex items-center justify-center gap-2 text-red-600"
+        variant="outline"
+        size="lg"
+        className="absolute w-full bottom-0 right-0 flex items-center justify-center text-red-600"
         onClick={() => handleLogout()}
       >
         <LogOut className="w-5 h-5" />

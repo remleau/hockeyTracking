@@ -66,7 +66,9 @@ export const settingsSlice = createSlice({
       .addCase(fetchSettings.fulfilled, (state, action) => {
         state.status = "succeeded"; // Mark as succeeded
         state.home_address = action.payload.home_address || {};
-        state.game_days = action.payload.game_days || [];
+        state.game_days = (action.payload.game_days || []).sort(
+          (a, b) => a - b
+        );
       })
       .addCase(fetchSettings.rejected, (state, action) => {
         state.status = "failed"; // Mark as failed

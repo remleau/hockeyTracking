@@ -12,6 +12,8 @@ export default function InputField({
   type = "text",
   onChange,
   value,
+  placeholder,
+  disabled,
 }) {
   const { register, formState, setValue } = useFormContext();
   const error = formState.errors[name]?.message;
@@ -21,13 +23,17 @@ export default function InputField({
   }, [value]);
 
   return (
-    <div className="mb-4">
-      <Label htmlFor={name}>{label}</Label>
+    <div className="mb-6">
+      <Label htmlFor={name} className="flex mb-2">
+        {label}
+      </Label>
       <Input
         name={name}
         id={name}
         type={type}
         value={value}
+        disabled={disabled}
+        placeholder={placeholder}
         {...register(name, {
           onChange: (e) => {
             // Call the parent-provided onChange handler if provided
@@ -36,7 +42,7 @@ export default function InputField({
             }
 
             // Optionally, use setValue to update the form state
-            // setValue(name, e.target.value, { shouldValidate: true });
+            setValue(name, e.target.value, { shouldValidate: true });
           },
         })}
         className={cn(error && "border-red-500")}

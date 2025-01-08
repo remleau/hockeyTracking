@@ -129,7 +129,7 @@ export default function AddMatch() {
 
   return (
     <div>
-      <PageTitle title={"Add a Match"} />
+      <PageTitle title={"Match"} icon="Bandage" />
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit(onSubmit)}

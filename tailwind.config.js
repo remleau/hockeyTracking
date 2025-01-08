@@ -51,7 +51,8 @@ export default {
           5: "hsl(var(--chart-5))",
         },
         fontFamily: {
-          poppins: ["Poppins", "sans-serif"],
+          montserrat: ["Montserrat", "sans-serif"],
+          lora: ["Lora", "serif"],
         },
       },
     },

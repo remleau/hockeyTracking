@@ -1,74 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import PageTitle from "@/components/PageTitle";
 import InputField from "@/components/form/InputField";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+import { ComboboxDemo } from "@/components/form/multiSelect";
 
-import { useForm, FormProvider } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SettingsSchema } from "@/schemas/pageSettingsSchema";
+import { FormProvider } from "react-hook-form";
 
 import { useAuth } from "@/lib/SessionWrapper";
 import { useGeocodeSearch } from "../hooks/queries/useGeocodeSearch.js";
-
-import { useSelector, useDispatch } from "react-redux";
-import { fetchSettings, upsertSettings } from "@/lib/slices/settingsSlice";
+import useSettingsForm from "../hooks/useSettings.jsx";
 
 export default function Settings() {
   const { session } = useAuth();
   const userId = session?.user?.id;
 
-  const dispatch = useDispatch();
-
-  const { home_address, game_days, searchResult, status, error } = useSelector(
-    (state) => state.settings
-  );
-
-  const methods = useForm({
-    mode: "onTouched",
-    defaultValues: {
-      home_address: "",
-      game_days: "",
-    },
-  });
-
-  const { reset } = methods;
-
-  useEffect(() => {
-    dispatch(fetchSettings(userId));
-  }, [userId]);
-
-  // Populate form fields when settings data is successfully fetched
-  useEffect(() => {
-    if (status === "succeeded") {
-      reset({
-        home_address: home_address?.place_name || "",
-        game_days: game_days || "",
-      });
-    }
-  }, [home_address, game_days, status, reset]);
-
-  const onSubmit = (formData) => {
-    console.log("Form Data:", formData);
-
-    const homeAddress =
-      typeof formData.home_address === "string" &&
-      formData.home_address.trim() !== ""
-        ? undefined
-        : formData.home_address; // Only include home_address if it's a non-empty string
-
-    // Extract gameDays from formData and check if it's a valid non-empty array
-    const gameDays =
-      Array.isArray(formData.game_days) && formData.game_days.length > 0
-        ? formData.game_days
-        : undefined; // Set to undefined if it's not a valid array or empty
-
-    // Dispatch the upsertSettings thunk
-    dispatch(
-      upsertSettings({ userId, home_address: homeAddress, game_days: gameDays })
-    );
-  };
+  const { methods, status, error, onSubmit, game_days, searchResult } =
+    useSettingsForm(userId);
 
   const [searchQueryVisible, setSearchQueryVisible] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -92,33 +40,33 @@ export default function Settings() {
 
   return (
     <>
-      <PageTitle title={"Settings"} />
+      <PageTitle title={"Settings"} icon="Settings" />
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit(onSubmit)}
-          className="max-w-lg mx-auto p-8 bg-white shadow-md rounded-md"
+          className="max-w-lg mx-auto px-4 py-6 bg-white shadow-sm rounded-sm"
         >
           {searchQueryVisible ? (
             <InputField
               name="home_address"
               label={`Home address:`}
-              value={methods.getValues()?.home_address}
+              value={methods.getValues().home_address}
               placeholder="Enter your address"
               className="w-full"
               onChange={handleInputChange}
             />
           ) : (
-            <div className="flex justify-between items-start pt-2">
-              <div>
-                <Label>Home address:</Label>
-                <p className="font-medium text-gray-600">
-                  {methods.getValues()?.home_address?.place_name ||
-                    searchResult}
-                </p>
-              </div>
-            </div>
+            <InputField
+              name="home_address2"
+              label={`Home address:`}
+              value={
+                methods.getValues().home_address?.place_name || searchResult
+              }
+              placeholder="Enter your address"
+              className="w-full"
+              disabled
+            />
           )}
-
           {data && data.features.length > 0 && (
             <div className="bg-white shadow-md rounded-lg overflow-hidden">
               <ul className="divide-y divide-gray-200">
@@ -143,8 +91,23 @@ export default function Settings() {
               </ul>
             </div>
           )}
-          <div className="flex justify-between mt-6">
-            <Button type="submit" disabled={status === "loading"}>
+
+          <div className="w-[100%]">
+            <ComboboxDemo
+              name="game_days"
+              label="Select weekly game day"
+              game_days={game_days}
+              methods={methods}
+            />
+          </div>
+
+          <div className="flex justify-between">
+            <Button
+              type="submit"
+              className="absolute w-full left-0 mt-12 shadow-sm"
+              size="lg"
+              disabled={status === "loading"}
+            >
               {status === "loading" ? "Saving ..." : "Save"}
             </Button>
           </div>

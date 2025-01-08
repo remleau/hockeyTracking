@@ -1,9 +1,22 @@
+import { useEffect, useState } from "react";
+
+import PageTitle from "@/components/PageTitle";
+
+import { useAuth } from "@/lib/SessionWrapper";
+
+import useArena from "@/hooks/useArena.jsx";
+
 export default function Home() {
+  const { session } = useAuth();
+  const userId = session?.user?.id;
+
+  const { arenas } = useArena(userId);
+
   return (
-    <div>
-      <h2 className="text-3xl font-[poppins] font-semibold text-gray-900 mt-4 ml-4 mb-4 tracking-wide leading-tight">
-        Home
-      </h2>
+    <>
+      <PageTitle title={"Home"} icon="House" />
+
+      {arenas?.map((a) => a.title)}
       <h2>
         homepage show next game, with incoming wheater, time to leave before
         game and gas cost.
@@ -24,7 +37,7 @@ export default function Home() {
 
       <h2>
         teampage show: team i play in, color white/black or home/away, add a
-        team
+        team, usuall play time 22h35,
       </h2>
       <br />
       <h2>
@@ -35,6 +48,6 @@ export default function Home() {
       <h2>
         Arenapage show: arena where i play, km away from home, cost to go there
       </h2>
-    </div>
+    </>
   );
 }

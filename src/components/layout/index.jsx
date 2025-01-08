@@ -13,9 +13,9 @@ function Layout() {
   if (!session) return <Navigate to={"/login"} />;
 
   return (
-    <main className="min-h-screen flex flex-col bg-gray-100">
+    <main className="min-h-screen flex flex-col flex-center bg-gray-100">
       <Header />
-      <section className="flex-1 flex flex-col pt-14 pb-16 overflow-auto">
+      <section className="flex-1 flex flex-col ml-4 mr-4 pt-14 pb-16 overflow-auto">
         <ScrollArea className="container w-[100%]">
           <Outlet />
         </ScrollArea>

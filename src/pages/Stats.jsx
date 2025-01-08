@@ -1,7 +1,16 @@
+import { useEffect, useState } from "react";
+
+import PageTitle from "@/components/PageTitle";
+
+import { useAuth } from "@/lib/SessionWrapper";
+
 export default function Stats() {
+  const { session } = useAuth();
+  const userId = session?.user?.id;
+
   return (
-    <h2 className="text-3xl font-[poppins] font-semibold text-gray-900 mt-4 ml-4 mb-4 tracking-wide leading-tight">
-      Stats
-    </h2>
+    <>
+      <PageTitle title={"Stats"} icon="BarChart" />
+    </>
   );
 }
